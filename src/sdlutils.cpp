@@ -121,9 +121,13 @@ void SDL_utils::renderAll(void)
 		    b = (c & 0x000000FF);
 			c = a | (b << 16) | g | (r >> 16);
 			
+#if defined(PLATFORM_MY282)
+			dx = y*2;
+			dy = (sw-x-1)*2;
+#else
 			dx = (sh-y-1)*2;
 			dy = x*2;
-			
+#endif			
 			i = (dy)*dw+dx;
 			dst[i] = c;
 			dst[i+1] = c;

@@ -12,7 +12,7 @@ RESDIR:=res
 SRCS=$(wildcard src/*.cpp)
 OBJS=$(patsubst %cpp,%o,$(SRCS))
 
-INCLUDE = -I/usr/include/SDL2
+INCLUDE = -I$(PREFIX)/include/SDL2
 LIB = -lSDL2 -lSDL2_image -lSDL2_ttf 
 
 all:$(OBJS)

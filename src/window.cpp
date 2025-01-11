@@ -37,6 +37,8 @@ const int CWindow::execute(void)
         {
             if (l_event.type == SDL_KEYDOWN)
             {
+				printf("key:%d\n",l_event.key.keysym.sym); fflush(stdout);
+				l_event.key.keysym.sym = l_event.key.keysym.sym==MYKEY_MENU?MYKEY_SYSTEM:l_event.key.keysym.sym;
                 l_render = this->keyPress(l_event);
                 if (m_retVal)
                     l_loop = false;
@@ -50,15 +52,13 @@ const int CWindow::execute(void)
             }
             else if(l_event.type == SDL_JOYBUTTONDOWN)
             {
-// #ifdef ODROID_GO_ADVANCE
                 printf("key:%d\n",l_event.jbutton.button); fflush(stdout);
                 SDL_Event key_event;
-				key_event.key.keysym.sym = l_event.jbutton.button==19?MYKEY_SYSTEM:l_event.jbutton.button;
+				key_event.key.keysym.sym = l_event.jbutton.button==MYKEY_MENU?MYKEY_SYSTEM:l_event.jbutton.button;
                 l_render = this->keyPress(key_event); // always returns false
 				l_render = true;
                 if (m_retVal)
                     l_loop = false;
-// #endif
             }
         }
         // Handle key hold
