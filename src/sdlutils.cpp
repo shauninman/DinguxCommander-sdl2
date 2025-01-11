@@ -102,7 +102,37 @@ void SDL_utils::renderAll(void)
         (*l_it)->render(l_it + 1 == Globals::g_windows.end());
 
     SDL_Rect rect{SCREEN_WIDTH/2-SCALE_WIDTH/2,0,SCALE_WIDTH,SCALE_HEIGHT};
-    SDL_BlitScaled(Globals::g_screen, NULL, Globals::g_screen_real,&rect);
+	
+	// rotate 90° and scale 320x240 to 480x640
+	uint32_t* src = (uint32_t*)Globals::g_screen->pixels;
+	uint32_t* dst = (uint32_t*)Globals::g_screen_real->pixels;
+	int sw,sh,dw,dh,dx,dy,i;
+	sw = 320;
+	sh = 240;
+	dw = 480;
+	dh = 640;
+	uint32_t c,a,r,g,b;
+	for (int y=0; y<sh; y++) {
+		for (int x=0; x<sw; x++) {
+			c = src[y*sw+x];
+		    a = (c & 0xFF000000);
+		    r = (c & 0x00FF0000);
+		    g = (c & 0x0000FF00);
+		    b = (c & 0x000000FF);
+			c = a | (b << 16) | g | (r >> 16);
+			
+			dx = (sh-y-1)*2;
+			dy = x*2;
+			
+			i = (dy)*dw+dx;
+			dst[i] = c;
+			dst[i+1] = c;
+			dst[i+dw] = c;
+			dst[i+dw+1] = c;
+		}
+	}
+	
+    // SDL_BlitScaled(Globals::g_screen, NULL, Globals::g_screen_real,&rect);
 }
 
 void SDL_utils::hastalavista(void)

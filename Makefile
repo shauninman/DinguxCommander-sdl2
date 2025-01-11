@@ -1,22 +1,26 @@
-CC=g++
-target = DinguxCommander
+ifeq (,$(PLATFORM))
+PLATFORM=$(UNION_PLATFORM)
+endif
+
+TARGET = DinguxCommander
+
+CC=$(CROSS_COMPILE)g++
+DPLATFORM=PLATFORM_$(shell echo $(PLATFORM) | tr 'a-z' 'A-Z')
 
 RESDIR:=res
 
 SRCS=$(wildcard src/*.cpp)
-#SRCS+=$(wildcard JvGame/*.cpp)
 OBJS=$(patsubst %cpp,%o,$(SRCS))
 
 INCLUDE = -I/usr/include/SDL2
-#LIB = -L/usr/lib -lSDL2 -lSDL2_image -lSDL2_ttf 
 LIB = -lSDL2 -lSDL2_image -lSDL2_ttf 
 
 all:$(OBJS)
-	$(CC) $(OBJS) -o $(target) $(LIB)
+	$(CC) $(OBJS) -o $(TARGET) -D$(DPLATFORM) $(LIB)
 
 %.o:%.cpp
-	$(CC) -DRESDIR="\"$(RESDIR)\"" -DODROID_GO_ADVANCE  -c $< -o $@  $(INCLUDE) 
+	$(CC) -DRESDIR="\"$(RESDIR)\"" -D$(DPLATFORM)  -c $< -o $@  $(INCLUDE) 
 
 clean:
-	rm $(OBJS) $(target) -f
+	rm $(OBJS) $(TARGET) -f
 

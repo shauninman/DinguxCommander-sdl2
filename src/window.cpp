@@ -50,49 +50,15 @@ const int CWindow::execute(void)
             }
             else if(l_event.type == SDL_JOYBUTTONDOWN)
             {
-#ifdef ODROID_GO_ADVANCE
-                // printf("key:%d\n",l_event.jbutton.button);
+// #ifdef ODROID_GO_ADVANCE
+                printf("key:%d\n",l_event.jbutton.button); fflush(stdout);
                 SDL_Event key_event;
-                switch (l_event.jbutton.button)
-                {
-                case 6: //up
-                    key_event.key.keysym.sym = MYKEY_UP;
-                    break;
-                case 7: //down
-                    key_event.key.keysym.sym = MYKEY_DOWN;
-                    break;
-                case 8: //left
-                    key_event.key.keysym.sym = MYKEY_LEFT;
-                    break;
-                case 9: //right
-                    key_event.key.keysym.sym = MYKEY_RIGHT;
-                    break;
-                case 0: //a
-                    key_event.key.keysym.sym = MYKEY_PARENT;
-                    break;
-                case 1: //b
-                    key_event.key.keysym.sym = MYKEY_OPEN;
-                    break;
-                case 2: //x
-                    key_event.key.keysym.sym = MYKEY_OPERATION;
-                    break;
-                case 3: //y
-                    key_event.key.keysym.sym = MYKEY_SYSTEM;
-                    break;
-                case 4: //l
-                    key_event.key.keysym.sym = MYKEY_PAGEUP;
-                    break;
-                case 5: //r
-                    key_event.key.keysym.sym = MYKEY_PAGEDOWN;
-                    break;
-                
-                default:
-                    break;
-                }
-                l_render = this->keyPress(key_event);
+				key_event.key.keysym.sym = l_event.jbutton.button==19?MYKEY_SYSTEM:l_event.jbutton.button;
+                l_render = this->keyPress(key_event); // always returns false
+				l_render = true;
                 if (m_retVal)
                     l_loop = false;
-#endif
+// #endif
             }
         }
         // Handle key hold
