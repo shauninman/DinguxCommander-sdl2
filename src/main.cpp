@@ -40,6 +40,7 @@ int main(int argc, char** argv)
 
     // Globals::g_screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SURFACE_FLAGS);
     Globals::g_screen_real = SDL_GetWindowSurface(Globals::g_sdlwindow);
+	printf("screen %ix%i\n", Globals::g_screen_real->w,Globals::g_screen_real->h); fflush(stdout);
     if (Globals::g_screen_real == NULL)
     {
         std::cerr << "SDL_SetVideoMode failed: " << SDL_GetError() << std::endl;

@@ -101,8 +101,10 @@ void SDL_utils::renderAll(void)
     for (std::vector<CWindow *>::iterator l_it = Globals::g_windows.begin() + l_i; l_it != Globals::g_windows.end(); ++l_it)
         (*l_it)->render(l_it + 1 == Globals::g_windows.end());
 
-    SDL_Rect rect{SCREEN_WIDTH/2-SCALE_WIDTH/2,0,SCALE_WIDTH,SCALE_HEIGHT};
-	
+#if defined(PLATFORM_MY355)
+    SDL_Rect rect{0,0,SCALE_WIDTH,SCALE_HEIGHT};
+	SDL_BlitScaled(Globals::g_screen, NULL, Globals::g_screen_real,&rect);
+#else
 	// rotate 90° and scale 320x240 to 480x640
 	uint32_t* src = (uint32_t*)Globals::g_screen->pixels;
 	uint32_t* dst = (uint32_t*)Globals::g_screen_real->pixels;
@@ -120,14 +122,14 @@ void SDL_utils::renderAll(void)
 		    g = (c & 0x0000FF00);
 		    b = (c & 0x000000FF);
 			c = a | (b << 16) | g | (r >> 16);
-			
+
 #if defined(PLATFORM_MY282)
 			dx = y*2;
 			dy = (sw-x-1)*2;
-#else
+#else // PLATFORM_ZERO28
 			dx = (sh-y-1)*2;
 			dy = x*2;
-#endif			
+#endif
 			i = (dy)*dw+dx;
 			dst[i] = c;
 			dst[i+1] = c;
@@ -135,8 +137,7 @@ void SDL_utils::renderAll(void)
 			dst[i+dw+1] = c;
 		}
 	}
-	
-    // SDL_BlitScaled(Globals::g_screen, NULL, Globals::g_screen_real,&rect);
+#endif
 }
 
 void SDL_utils::hastalavista(void)

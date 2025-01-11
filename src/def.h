@@ -121,6 +121,25 @@
 #define MYKEY_MENU			SDLK_ESCAPE		// MENU
 #define PATH_DEFAULT        "/"
 #define FILE_SYSTEM         "/dev/mmcblk1p1"
+#elif defined(PLATFORM_MY355)
+// Keys for Mini Zero 28
+#define MYKEY_UP            SDLK_UP         // Up
+#define MYKEY_RIGHT         SDLK_RIGHT      // Right
+#define MYKEY_DOWN          SDLK_DOWN       // Down
+#define MYKEY_LEFT          SDLK_LEFT       // Left
+
+#define MYKEY_SYSTEM        SDLK_LALT		// X
+#define MYKEY_PAGEUP        SDLK_e			// L (tab is L2)
+#define MYKEY_PAGEDOWN      SDLK_t			// R (backspace is R2)
+#define MYKEY_OPEN          SDLK_SPACE		// A
+#define MYKEY_PARENT        SDLK_LCTRL		// B
+#define MYKEY_OPERATION     SDLK_LSHIFT		// Y
+
+#define MYKEY_SELECT        SDLK_LGUI       // SELECT
+#define MYKEY_TRANSFER      SDLK_RETURN     // START
+#define MYKEY_MENU			SDLK_ESCAPE		// MENU
+#define PATH_DEFAULT        "/"
+#define FILE_SYSTEM         "/dev/mmcblk1p1"
 #else
 // Keys for PC keyboard
 #define MYKEY_UP            SDLK_UP
