@@ -52,7 +52,7 @@ const int CWindow::execute(void)
             }
             else if(l_event.type == SDL_JOYBUTTONDOWN)
             {
-                printf("key:%d\n",l_event.jbutton.button); fflush(stdout);
+                printf("joy:%d\n",l_event.jbutton.button); fflush(stdout);
                 SDL_Event key_event;
 				key_event.key.keysym.sym = l_event.jbutton.button==MYKEY_MENU?MYKEY_SYSTEM:l_event.jbutton.button;
                 l_render = this->keyPress(key_event); // always returns false
@@ -60,6 +60,23 @@ const int CWindow::execute(void)
                 if (m_retVal)
                     l_loop = false;
             }
+			else if (l_event.type==SDL_JOYHATMOTION) {
+				printf("hat:%d\n",l_event.jhat.value); fflush(stdout);
+				int hat = l_event.jhat.value;
+				SDL_Event key_event;
+				key_event.key.keysym.sym = 0;
+				if (hat==SDL_HAT_UP) key_event.key.keysym.sym = MYKEY_UP;
+				if (hat==SDL_HAT_DOWN) key_event.key.keysym.sym = MYKEY_DOWN;
+				if (hat==SDL_HAT_LEFT) key_event.key.keysym.sym = MYKEY_LEFT;
+				if (hat==SDL_HAT_RIGHT) key_event.key.keysym.sym = MYKEY_RIGHT;
+				
+				if (key_event.key.keysym.sym) {
+	                l_render = this->keyPress(key_event); // always returns false
+					l_render = true;
+	                if (m_retVal)
+	                    l_loop = false;
+				}
+			}
         }
         // Handle key hold
         if (l_loop)

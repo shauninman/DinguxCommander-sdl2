@@ -5,11 +5,7 @@
 #define INHIBIT(X) /* X */
 
 #define SCREEN_WIDTH          320
-// #define SCREEN_WIDTH          480
 #define SCREEN_HEIGHT         240
-// #define SCREEN_HEIGHT         320
-#define SCALE_WIDTH           640  
-#define SCALE_HEIGHT          480
 
 #define SCREEN_BPP            16
 #define SURFACE_FLAGS         SDL_SWSURFACE
@@ -97,6 +93,23 @@
 #define MYKEY_OPEN          0	// A
 #define MYKEY_PARENT        1	// B
 #define MYKEY_OPERATION     2	// X
+#define MYKEY_SELECT        8	// SELECT
+#define MYKEY_TRANSFER      9	// START
+#define MYKEY_MENU			19	// MENU
+#define PATH_DEFAULT        "/"
+#define FILE_SYSTEM         "/dev/mmcblk1p1"
+#elif defined(PLATFORM_TG5040)
+// Joys for Trimui Brick/Smart Pro
+#define MYKEY_UP            13	// Up
+#define MYKEY_RIGHT         15	// Right
+#define MYKEY_DOWN          16	// Down
+#define MYKEY_LEFT          14	// Left
+#define MYKEY_SYSTEM        2	// Y
+#define MYKEY_PAGEUP        4	// L
+#define MYKEY_PAGEDOWN      5	// R
+#define MYKEY_OPEN          1	// A
+#define MYKEY_PARENT        0	// B
+#define MYKEY_OPERATION     3	// X
 #define MYKEY_SELECT        8	// SELECT
 #define MYKEY_TRANSFER      9	// START
 #define MYKEY_MENU			19	// MENU

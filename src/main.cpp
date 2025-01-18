@@ -35,7 +35,7 @@ int main(int argc, char** argv)
     Globals::g_sdlwindow = SDL_CreateWindow("Commander",  
                               SDL_WINDOWPOS_UNDEFINED,  
                               SDL_WINDOWPOS_UNDEFINED,  
-                              SCREEN_WIDTH, SCREEN_HEIGHT,  
+                              SCREEN_WIDTH, SCREEN_HEIGHT,  // TODO: change to 0,0?
                               SDL_WINDOW_OPENGL);  
 
     // Globals::g_screen = SDL_SetVideoMode(SCREEN_WIDTH, SCREEN_HEIGHT, SCREEN_BPP, SURFACE_FLAGS);

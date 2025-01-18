@@ -102,7 +102,19 @@ void SDL_utils::renderAll(void)
         (*l_it)->render(l_it + 1 == Globals::g_windows.end());
 
 #if defined(PLATFORM_MY355)
-    SDL_Rect rect{0,0,SCALE_WIDTH,SCALE_HEIGHT};
+    SDL_Rect rect{0,0,640,480};
+	SDL_BlitScaled(Globals::g_screen, NULL, Globals::g_screen_real,&rect);
+#elif defined(PLATFORM_TG5040)
+	int sw = Globals::g_screen_real->w;
+	int sh = Globals::g_screen_real->h;
+	int sx = (sw / SCREEN_WIDTH);
+	int sy = (sh / SCREEN_HEIGHT);
+	int s = sx<sy?sx:sy;
+	int w = s * SCREEN_WIDTH;
+	int h = s * SCREEN_HEIGHT;
+	int x = (sw - w) / 2;
+	int y = (sh - h) / 3;
+	SDL_Rect rect{x,y,w,h};
 	SDL_BlitScaled(Globals::g_screen, NULL, Globals::g_screen_real,&rect);
 #else
 	// rotate 90° and scale 320x240 to 480x640
